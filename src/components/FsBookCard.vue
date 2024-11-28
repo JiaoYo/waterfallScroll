@@ -1,6 +1,6 @@
 <template>
   <div class="fs-book-card-container">
-    <div class="fs-book-card-image">
+    <div class="fs-book-card-image" @click="emit('clickImg', $event)">
       <!-- <img :src="props.detail.url" /> -->
     </div>
     <div class="fs-book-card-footer">
@@ -28,6 +28,9 @@ interface ICardDetail {
 const props = defineProps<{
   detail: ICardDetail;
 }>();
+const emit = defineEmits<{
+  (e: 'clickImg',...args: any[]): void;
+}>();
 </script>
 
 <style scoped lang="scss">
@@ -43,7 +46,7 @@ const props = defineProps<{
     cursor: pointer;
     border: 1px solid #eee;
     border-radius: 20px;
-    background-color: v-bind("props.detail.bgColor");
+    // background-color: v-bind("props.detail.bgColor");
   }
   &-footer {
     padding: 12px;

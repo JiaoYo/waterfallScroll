@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" v-clickEffect="200">
     <div class="container" ref="fContainerRef">
       <fs-book-waterfall :bottom="20" :column="column" :gap="10" :page-size="20" :request="getData"
         @scroll="handleScroll" ref="fsRef">
@@ -9,7 +9,7 @@
             title: item.title,
             author: item.author,
             bgColor: colorArr[index % (colorArr.length - 1)],
-          }" @click="LookInfo($event, item, index)" />
+          }" @clickImg="LookInfo($event, item, index)" />
         </template>
       </fs-book-waterfall>
     </div>

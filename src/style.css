@@ -7,3 +7,17 @@ body {
 div {
   box-sizing: border-box;
 }
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 1s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-effect {
+  to {
+      transform: scale(1);
+      opacity: 0;
+  }
+}

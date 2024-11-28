@@ -29,7 +29,7 @@ watch(() => vision.value, (val) => {
 <template>
   <teleport to="body" v-if="vision">
     <div class="mask" @click="vision = false"></div>
-    <div class="model" ref="modelRef" :style="{
+    <div class="model" ref="modelRef" v-clickEffect :style="{
       width: props.item.width + 'px', height: props.item.height + 'px', backgroundColor: props.item.bg,
       left: props.item.left + 'px', top: props.item.top + 'px'
     }">
