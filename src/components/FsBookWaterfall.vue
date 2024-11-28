@@ -167,6 +167,15 @@ onMounted(() => {
 onUnmounted(() => {
   containerRef.value && resizeObserver.unobserve(containerRef.value);
 });
+const scrollToTop = () => {
+  containerRef.value?.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+}
+defineExpose({
+  scrollToTop,
+});
 </script>
 
 <style scoped lang="scss">

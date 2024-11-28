@@ -40,6 +40,7 @@ const props = defineProps<{
   &-image {
     width: 100%;
     height: v-bind("`${props.detail.imageHeight}px`");
+    cursor: pointer;
     border: 1px solid #eee;
     border-radius: 20px;
     background-color: v-bind("props.detail.bgColor");

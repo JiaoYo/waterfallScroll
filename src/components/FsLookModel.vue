@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { ref, reactive, onMounted, watch, computed, nextTick } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 const vision = defineModel('vision')
 const props = defineProps({
   item: {
@@ -7,10 +7,9 @@ const props = defineProps({
     default: () => ({})
   }
 })
-const modelRef = ref(null)
+const modelRef = ref<any>(null)
 const init = () => {
-  const initH = 760,
-    initW = 1160
+  const initH = 760
   const w = props.item.width * initH / props.item.height
   nextTick(() => {
     setTimeout(() => {

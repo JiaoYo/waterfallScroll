@@ -1,7 +1,8 @@
 <template>
   <div class="app">
     <div class="container" ref="fContainerRef">
-      <fs-book-waterfall :bottom="20" :column="column" :gap="10" :page-size="20" :request="getData">
+      <fs-book-waterfall :bottom="20" :column="column" :gap="10" :page-size="20" :request="getData"
+        @scroll="handleScroll" ref="fsRef">
         <template #item="{ item, index, imageHeight }">
           <fs-book-card :detail="{
             imageHeight,
@@ -12,6 +13,7 @@
         </template>
       </fs-book-waterfall>
     </div>
+    <div ref="scrollRef" class="scrollBts" @click="scrollToTop"></div>
   </div>
   <FsLookModel v-model:vision="vision" :item="Litem"></FsLookModel>
 </template>
@@ -79,8 +81,8 @@ const getData = (page: number, pageSize: number) => {
     }, 1000);
   });
 };
-const Litem = ref<ICardItem | null>(null);
-const LookInfo = (e, item: ICardItem, index: number) => {
+const Litem = ref<ICardItem | any>(null);
+const LookInfo = (e: any, item: ICardItem, index: number) => {
   // console.log(e);
   var element = e.target;
   var rect = element.getBoundingClientRect();
@@ -89,6 +91,20 @@ const LookInfo = (e, item: ICardItem, index: number) => {
   Litem.value = { ...item, top, left, width: rect.width, height: rect.height, bg: colorArr[index % (colorArr.length - 1)] };
   vision.value = true;
 }
+const scrollRef = ref<HTMLDivElement | null>(null);
+const handleScroll = (e: any) => {
+  // console.log(e.target.scrollTop);
+  scrollRef.value!.style.top = e.target.scrollTop >= 1000 ? '-30%' : '-100%';
+}
+const fsRef = ref<any>(null);
+const scrollToTop = (event: any) => {
+  const rect = scrollRef.value!.getBoundingClientRect();
+  const clickY = event.clientY - rect.top;
+  const elementHeight = rect.height;
+  if (clickY > elementHeight * 0.85) {
+    fsRef.value?.scrollToTop()
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -100,6 +116,30 @@ const LookInfo = (e, item: ICardItem, index: number) => {
   .container {
     width: 1400px;
     height: 100vh;
+  }
+
+  .scrollBts {
+    position: absolute;
+    top: -100%;
+    right: 50px;
+    width: 70px;
+    height: 100%;
+    background-image: url('./assets/scrollbts.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70px;
+      height: 85%;
+      cursor: auto;
+    }
   }
 }
 </style>
